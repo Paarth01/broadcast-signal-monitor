@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/c98a42cf-cc5d-423a-93fe-c306a716417a
+
 # IP broadcast signal health monitor
 
 [![CI](https://github.com/Paarth01/broadcast-signal-monitor/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-USERNAME/broadcast-signal-monitor/actions/workflows/ci.yml)
@@ -16,7 +20,7 @@ health monitoring, and systems integration.
 
 **30-second demo:** injecting a fault and watching it get classified live.
 
-<video src="https://github.com/Paarth01/broadcast-signal-monitor/blob/main/Screen%20Recording%202026-09-05%20152301.mp4" controls></video>
+<video src="https://github.com/Paarth01/broadcast-signal-monitor/c98a42cf-cc5d-423a-93fe-c306a716417a" controls></video>
 
 
 ## Why it's modeled this way
