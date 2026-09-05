@@ -1,6 +1,6 @@
 # IP broadcast signal health monitor
 
-[![CI](https://github.com/YOUR-USERNAME/broadcast-signal-monitor/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-USERNAME/broadcast-signal-monitor/actions/workflows/ci.yml)
+[![CI](https://github.com/Paarth01/broadcast-signal-monitor/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-USERNAME/broadcast-signal-monitor/actions/workflows/ci.yml)
 
 <!-- Replace YOUR-USERNAME above with your actual GitHub username once pushed. -->
 
