@@ -14,6 +14,11 @@ Built to demonstrate the intersection of software engineering and broadcast
 engineering fundamentals: IP networking and signal transmission, equipment
 health monitoring, and systems integration.
 
+**30-second demo:** injecting a fault and watching it get classified live.
+
+<video src="https://github.com/user-attachments/assets/YOUR-UPLOADED-VIDEO-ID" controls></video>
+
+
 ## Why it's modeled this way
 
 Two design choices come directly from how broadcast engineers actually
