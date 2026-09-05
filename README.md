@@ -1,7 +1,3 @@
-
-
-https://github.com/user-attachments/assets/c98a42cf-cc5d-423a-93fe-c306a716417a
-
 # IP broadcast signal health monitor
 
 [![CI](https://github.com/Paarth01/broadcast-signal-monitor/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-USERNAME/broadcast-signal-monitor/actions/workflows/ci.yml)
