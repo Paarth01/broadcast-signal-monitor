@@ -46,7 +46,67 @@ device wrongly claiming the master role.
 
 ## Architecture
 
-![Architecture: stream simulator to ingestion and storage to classification engine to FastAPI/SSE API to React dashboard](docs/architecture.svg)
+```mermaid
+flowchart TD
+    subgraph SIM["Stream Simulator (1s tick)"]
+        direction LR
+        MS["5 media streams<br/>bitrate·jitter·loss%·seq_err<br/>faults: packet_loss, jitter,<br/>dropout, soft_drift"]
+        PTP["3 PTP devices<br/>1 grandmaster + 2 slaves<br/>faults: drift, rogue_master"]
+    end
+
+    subgraph CLASS["Classification Engine"]
+        direction LR
+        RULE["media_classifier.py<br/>P1: loss≥5% or seq≥3<br/>P2: loss≥1% or jitter≥5ms<br/>P3: jitter≥2ms"]
+        ML["ML fallback (model.joblib)<br/>IsolationForest, thresh=0.04<br/>~18% catch / 0.4% FP on drift"]
+        PTPC["ptp_classifier.py<br/>P1: offset≥1000µs or rogue<br/>P2: offset≥100µs or delay≥500µs<br/>P3: offset≥50µs"]
+        RULE -.->|"no rule fires"| ML
+    end
+
+    subgraph STORE["Storage (engine.py, commit/tick)"]
+        direction LR
+        REDIS[("Redis<br/>live JSON per stream")]
+        PG[("PostgreSQL<br/>MetricLog + FaultEvent<br/>resolved flag on recovery")]
+    end
+
+    subgraph API["FastAPI"]
+        direction LR
+        REST["routes.py<br/>GET /streams, /streams/:name<br/>GET /streams/:name/history<br/>GET /faults · POST /simulate/fault"]
+        SSE["sse.py<br/>GET /stream/events"]
+    end
+
+    subgraph UI["React Dashboard"]
+        direction LR
+        GRID["StatusGrid.tsx<br/>P1/P2/P3 color dots"]
+        CHART["StreamChart.tsx<br/>seeded from history + live SSE"]
+        LOG["FaultLog.tsx<br/>active / resolved"]
+        BTN["ControlPanel.tsx<br/>fault-inject buttons"]
+    end
+
+    MS --> RULE
+    PTP --> PTPC
+    RULE & ML & PTPC -->|"every tick"| REDIS
+    RULE & ML & PTPC -->|"on priority change"| PG
+
+    REDIS -->|"poll"| REST
+    PG --> REST
+    REDIS -->|"push"| SSE
+
+    REST --> GRID & LOG & CHART
+    SSE --> GRID & CHART
+
+    BTN ==>|"POST /simulate/fault"| MS
+    BTN ==>|"POST /simulate/fault"| PTP
+
+    classDef rule fill:#e0483e,stroke:#333,color:#fff
+    classDef ml fill:#e8a33d,stroke:#333,color:#000
+    classDef store fill:#26a69a,stroke:#333,color:#fff
+    classDef ui fill:#9333ea,stroke:#333,color:#fff
+
+    class RULE,PTPC rule
+    class ML ml
+    class REDIS,PG store
+    class GRID,CHART,LOG,BTN ui
+```
 
 ## The ML anomaly layer, and its honest limits
 
