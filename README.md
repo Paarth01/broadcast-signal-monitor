@@ -16,7 +16,7 @@ health monitoring, and systems integration.
 
 **30-second demo:** injecting a fault and watching it get classified live.
 
-<video src="[https://github.com/user-attachments/assets/YOUR-UPLOADED-VIDEO-ID](https://github.com/Paarth01/broadcast-signal-monitor/blob/main/Screen%20Recording%202026-09-05%20152301.mp4)" controls></video>
+<video src="https://github.com/Paarth01/broadcast-signal-monitor/blob/main/Screen%20Recording%202026-09-05%20152301.mp4" controls></video>
 
 
 ## Why it's modeled this way
